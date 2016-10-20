@@ -1,0 +1,13 @@
+body {
+  padding-top: 50px;
+  background: #2D2D29
+}
+.home {
+  color: #FFFFFF;
+  padding: 40px 15px;
+  text-align: center;
+}
+.home button {
+  color: #000000;
+}
+
