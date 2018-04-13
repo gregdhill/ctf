@@ -20,10 +20,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
-    <script src="js/ie-emulation-modes-warning.js"></script>
+	<script defer src="js/fontawesome-all.js"></script>
   </head>
 
   <body>
@@ -49,42 +48,37 @@
       </div>
     </nav>
 
-    <div class="container">
+	<div class="container">
 
-      <div class="home">
-        <h1>Convert</h1>
-        <div class="row">
-	    <input type="text" class="form-control" id="con_text"></input>
+		<div class="home">
+			<h1>Convert</h1>
+			<div class="description">
+				<p>Translate hexadecimal to decimal and vice versa.</p>
+			</div>
+			<div class="row">
+				<input type="text" class="form-control text-box" id="con_text"></input>
+			</div>
+			<div class="row">
+				<button type="button" class="btn btn-primary btn-lg small-btn" onclick="hex_to_dec()">
+				<span class="" aria-hidden="true"></span> H2D
+				</button>
+				<button type="button" class="btn btn-primary btn-lg small-btn" onclick="dec_to_hex()">
+				<span class="" aria-hidden="true"></span> D2H
+				</button>
+			</div>
+
+			<div id="result"></div>
+
+		</div>
+
 	</div>
-	<div class="row" style="padding-top: 10px; padding-bottom: 20px;">
-	    <button type="button" class="btn btn-primary btn-lg" onclick="hex_to_dec()">
-  		<span class="" aria-hidden="true"></span> H2D
-	    </button>
-	    <button type="button" class="btn btn-primary btn-lg" onclick="dec_to_hex()">
-  		<span class="" aria-hidden="true"></span> D2H
-	    </button>
-	</div>
 
-	<div id="output">
-
-	</div>
-
-      </div>
-
-    </div>
-
+	<script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
-
 	<script type="text/javascript">
-	function lookup() {
-
-
-	}
-
 	function hex_to_dec() {
 
-		document.getElementById("output").innerHTML = "";
+		document.getElementById("result").innerHTML = "";
 
 		var h = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
 		var d = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
@@ -93,6 +87,7 @@
 		var len = t.length;
 
 		if (len == 0) {
+			$("#result").hide();
 			return;
 		}
 
@@ -107,25 +102,26 @@
 			end--;
 		}
 
-		document.getElementById("output").innerHTML = value;
+		$("#result").show();
+		document.getElementById("result").innerHTML = value;
 	}
 
 	function dec_to_hex() {
 		var h = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
                 var d = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
-		var o = document.getElementById("output");
+		var o = document.getElementById("result");
 		o.innerHTML = "";
 		var t = document.getElementById("con_text").value;
 		var l = t.length;
 
 		if (l == 0) {
+			$("#result").hide();
 			return;
 		}
 
 		var r = "";
 		var i = parseInt(t, 10);
-
 
 		if (Math.floor(i/16) == 0) {
 			r += h[i%16];
@@ -135,7 +131,12 @@
 				i = Math.floor(i/16);
 			}
 		}
-		o.innerHTML = r.split("").reverse().join("");;
+		
+		var str = r.split("").reverse().join("");
+		if (str=="")
+			str = "Invalid Input";
+		$("#result").show();
+		o.innerHTML = str;
 	}
 
 	</script>

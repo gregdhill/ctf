@@ -20,10 +20,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
-    <script src="js/ie-emulation-modes-warning.js"></script>
+	<script defer src="js/fontawesome-all.js"></script>
   </head>
 
   <body>
@@ -49,38 +48,45 @@
       </div>
     </nav>
 
-    <div class="container">
+	<div class="container">
 
-      <div class="home">
-        <h1>Frequency Analysis</h1>
-        <div class="row left">
-	    <input type="text" class="form-control" id="input"></input>
+		<div class="home">
+			<h1>Frequency</h1>
+			<div class="description">
+				<p>Measure the occurence of letters in a given sequence.</p>
+			</div>
+			<div class="row options">
+				<label class="checkbox-inline"><input type="checkbox" id="lower" value="" checked>Lowercase</label>
+				<label class="checkbox-inline"><input type="checkbox" id="upper" value="">Uppercase</label>
+				<label class="checkbox-inline"><input type="checkbox" id="numbs" value="">Numbers</label> 
+			</div>	
+			<div class="row left">
+				<input type="text" class="form-control text-box" id="input"></input>
+			</div>
+			<div class="row right">
+				<button type="button" class="btn btn-primary btn-lg btn-block" onclick="freq_analysis()">
+				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div id="output"></div>
+		</div>
+
 	</div>
-	<div class="row right">
-	    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="freq_analysis()">
-  		<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-	    </button>
-	</div>
 
-	<div id="output">
-
-	</div>
-
-      </div>
-
-    </div>
-
+	<script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
-
 	<script type="text/javascript">
 	function freq_analysis() {
 
 		document.getElementById("output").innerHTML = "";
 
-		var a = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-		a.push("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-		a.push("1","2","3","4","5","6","7","8","9","0");
+		var a = [];
+		if (document.getElementById("lower").checked == true)
+			a.push("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
+		if (document.getElementById("upper").checked == true)
+			a.push("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+		if (document.getElementById("numbs").checked == true)
+			a.push("1","2","3","4","5","6","7","8","9","0");
 
 		var x = new Array(a.length).fill(0);
 		var t = document.getElementById("input").value;
@@ -101,7 +107,7 @@
 		var str = "<table class='table'><thead><tr><th style='text-align: center;'>Letter</th><th style='text-align: left;'>Occurence</th></tr></thead><tbody>";;
 
 		for (var i = 0; i < a.length; i++) {
-			str += "<tr><td>" + a[i] + "</td><td width='1000' style='text-align: start;'>" + x[i] + "</td></tr>";
+			str += "<tr><td width='500'>" + a[i] + "</td><td width='1000' style='text-align: start;'>" + x[i] + "</td></tr>";
 		}
 
 		document.getElementById("output").innerHTML = str;
